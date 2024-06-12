@@ -1,9 +1,9 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #c592ff;
 }
 
 .form-container {
-    background-color: #e9ecef;
+    background-color: #cde6ff;
     padding: 20px;
     border-radius: 8px;
     margin: 20px auto;
@@ -16,16 +16,16 @@ body {
 }
 
 .table {
-    background-color: #cfe2ff;
+    background-color: #83bffa ;
     border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 20px;
+    overflow: hidden ;
+    margin-bottom: 20px ;
 }
 
 .table th,
 .table td {
-    text-align: center;
-    vertical-align: middle;
+    text-align: left  ;
+    vertical-align: middle ;
 }
 
 .form-check-input {
@@ -33,8 +33,8 @@ body {
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #150075;
+    border-color: #150075;
 }
 
 .text-center {
