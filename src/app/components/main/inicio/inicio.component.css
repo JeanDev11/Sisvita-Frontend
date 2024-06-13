@@ -1,0 +1,30 @@
+.bg-opacidad{
+    background-color: rgba(45,45,45,0.6);
+}
+
+.btn-personal{
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #C2A5EE; /* Color de fondo personalizado */
+    /* --bs-btn-border-color: #007bff; Color del borde personalizado */
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #997ec3; /* Color de fondo al pasar el mouse */
+    /* --bs-btn-hover-border-color: #0056b3; Color del borde al pasar el mouse */
+    --bs-btn-focus-shadow-rgb: 0, 123, 255; /* Sombra al enfocar */
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #8971af; /* Color de fondo al hacer clic */
+    --bs-btn-active-border-color: #8875a7; /* Color del borde al hacer clic */
+}
+
+.card{
+    width: 28%;
+    margin: 0px 4rem 30px;
+
+}
+
+/* md */
+@media(max-width: 768px){
+    .card{
+        width: auto;
+    }
+}
