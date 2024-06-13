@@ -1,11 +1,11 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ToggleSidebarService } from '../../../services/toggle-sidebar.service';
-import { InicioComponent } from '../inicio/inicio.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [InicioComponent],
+  imports: [RouterOutlet],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
