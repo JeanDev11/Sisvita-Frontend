@@ -1,0 +1,42 @@
+body {
+    background-color: #c592ff;
+}
+
+.form-container {
+    background-color: #cde6ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.table {
+    background-color: #83bffa ;
+    border-radius: 8px;
+    overflow: hidden ;
+    margin-bottom: 20px ;
+}
+
+.table th,
+.table td {
+    text-align: left  ;
+    vertical-align: middle ;
+}
+
+.form-check-input {
+    margin-top: 0;
+}
+
+.btn-primary {
+    background-color: #150075;
+    border-color: #150075;
+}
+
+.text-center {
+    margin-top: 20px;
+}
