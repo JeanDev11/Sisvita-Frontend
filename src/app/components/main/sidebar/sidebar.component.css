@@ -1,0 +1,102 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidebar{
+    height: 100vh;
+    width: 250px;
+    padding: 20px 15px;
+    background-color: var(--background-color);
+    overflow: hidden;
+    transition: width 0.5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.min-sidebar{
+    width: 80px;
+}
+
+.nombre-app{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    opacity: 1;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+    font-size: 1.5em;
+}
+
+.name-icon {
+    font-family: "LXGW WenKai TC", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.4rem;
+}
+
+.nombre-app-oculto{
+    opacity: 0;
+}
+
+img{
+    height: 50px;
+    width: 50px;
+}
+
+li{
+    list-style: none;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: left;
+}
+
+li a{
+    /* border: 2px solid orange; */
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 10px;
+    color: var(--text-color);
+}
+
+li a:hover{
+    background-color: var(--opcion-hover);
+}
+
+.name-option{
+    font-size: large;
+    margin-left: 5px;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.4s ease, width 0.5s ease;
+}
+
+.name-option-oculto{
+    opacity: 0;
+    width: 0px;
+}
+
+.material-symbols-rounded{
+    font-size: 32px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+nav{
+    flex: 1;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebar ul li:last-child {
+    margin-top: auto;
+}

@@ -1,0 +1,8 @@
+.main{
+    display: flex;
+}
+
+app-navbar{
+    background-color: aquamarine;
+    width: 100%;
+}
