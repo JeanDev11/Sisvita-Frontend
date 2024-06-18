@@ -1,17 +1,31 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ToggleSidebarService } from '../../../services/toggle-sidebar.service';
 import { RouterOutlet } from '@angular/router';
+import { PersonaService } from '../../../services/persona.service';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-body',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './body.component.html',
+  styleUrl: './body.component.css'
 })
-export class NavbarComponent {
+export class BodyComponent {
 
-  constructor(private toggleSidebarService: ToggleSidebarService, private el: ElementRef, private renderer: Renderer2){}
+  nombreUsuario: string = ""
+  constructor(private toggleSidebarService: ToggleSidebarService, private el: ElementRef, private renderer: Renderer2,
+    private personaService: PersonaService
+  ){}
+
+  ngOnInit(): void {
+    this.personaService.currentUserSubject.subscribe(user => {
+      if (user) {
+        this.nombreUsuario = user.nombre;
+      } else {
+        this.nombreUsuario = "";
+      }
+    });
+  }
 
   toggleSidebar() {
     this.toggleSidebarService.toggleSidebar();
