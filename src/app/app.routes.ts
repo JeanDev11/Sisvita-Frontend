@@ -7,10 +7,12 @@ import { TestComponent } from './components/main/test/test.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent},
+    { path: '', component: TestAnsiedadComponent},
     { path: 'main', component: MainComponent, children: [
         { path: '', redirectTo: 'inicio', pathMatch: 'full' },
         { path: 'inicio', component: InicioComponent },
         { path: 'test', component: TestComponent },
+        { path: 'test-ansiedad', component: TestAnsiedadComponent },
 
     ]}
 ];
