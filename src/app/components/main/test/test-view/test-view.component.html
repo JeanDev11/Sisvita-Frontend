@@ -1,0 +1,72 @@
+<div class="contenedor">
+    <div class="form-container">
+        <h2 class="form-header">{{ test?.titulo }}</h2>
+        <p>Lee atentamente cada una de las preguntas. ¿De qué manera cada una de estas frases describe como te has
+            sentido a lo largo de esta última semana? ¿Te has sentido así “casi nunca o raras veces”, “algunas veces”,
+            “a menudo”, “muy a menudo”?</p>
+        <form (ngSubmit)="submitTest()">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Casi nunca</th>
+                        <th>Alguna vez</th>
+                        <th>A menudo</th>
+                        <th>Muy a menudo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pregunta of preguntas; let i = index">
+                        <td>{{ i + 1 }}. {{ pregunta.texto_pregunta }}</td>
+                        <td *ngFor="let alternativa of pregunta.alternativas">
+                            <input type="radio"
+                                [id]="'question' + pregunta.pregunta_id + 'alternativa' + alternativa.id"
+                                [name]="'question' + pregunta.pregunta_id" [value]="alternativa.puntaje"
+                                [(ngModel)]="pregunta.respuesta">
+                            <label [for]="'question' + pregunta.pregunta_id + 'alternativa' + alternativa.id">{{
+                                alternativa.texto }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- 
+<div class="contenedor">
+    <div class="form-container">
+        <h2 class="form-header">{{ test?.titulo }}</h2>
+        <p>Lee atentamente cada una de las preguntas. ¿De qué manera cada una de estas frases describe como te has
+            sentido a lo largo de esta última semana? ¿Te has sentido así “casi nunca o raras veces”, “algunas veces”,
+            “a menudo”, “muy a menudo”?</p>
+        <form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Casi nunca</th>
+                        <th>Alguna vez</th>
+                        <th>A menudo</th>
+                        <th>Muy a menudo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pregunta of preguntas; let i = index">
+                        <td>{{ i + 1 }}. {{ pregunta.texto_pregunta }}</td>
+                        <td *ngFor="let alternativa of pregunta.alternativas">
+                            <input type="radio" [name]="'question' + pregunta.pregunta_id" [value]="alternativa.puntaje">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div> -->

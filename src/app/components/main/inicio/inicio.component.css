@@ -1,5 +1,6 @@
-.ac{
-    border: 2px solid #997ec3;
+.contenedor{
+    /* border: 2px solid #997ec3; */
+    height: calc(100vh - 120px);
 }
 
 .bg-opacidad{
