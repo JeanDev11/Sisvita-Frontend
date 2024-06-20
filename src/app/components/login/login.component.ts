@@ -63,7 +63,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-
     if (this.isSwapped) { // Nuevo usuario
       if (!this.correo_electronico || !this.contrasena || !this.rol) {
         // Mostrar mensaje de error al usuario indicando que los campos son requeridos
@@ -127,6 +126,18 @@ export class LoginComponent {
       this.usuarioService.addPaciente(paciente).subscribe(
         response => {
           console.log('Registro exitoso P');
+          // ** login
+          this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
+            response => {
+              console.log('Login success:', response);
+              // Redirigir a la otra ventana
+              this.router.navigate(['/main']); 
+            },
+            error => {
+              console.error('Login failed:', error);
+              // Muestrar un mensaje de error al usuario.
+            }
+          );
           this.router.navigate(['/main']);
         },
         error => {
@@ -159,6 +170,18 @@ export class LoginComponent {
       this.usuarioService.addEspecialista(especialista).subscribe(
         response => {
           console.log('Registro exitoso E');
+          // ** login
+          this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
+            response => {
+              console.log('Login success:', response);
+              // Redirigir a la otra ventana
+              this.router.navigate(['/main']); 
+            },
+            error => {
+              console.error('Login failed:', error);
+              // Muestrar un mensaje de error al usuario.
+            }
+          );
           this.router.navigate(['/main']);
         },
         error => {

@@ -52,5 +52,5 @@
     padding: 20px;
     min-height: calc(100vh - 80px);
     /* flex-grow: 1; */
-    border: 2px solid salmon;
+    /* border: 2px solid salmon; */
 }
