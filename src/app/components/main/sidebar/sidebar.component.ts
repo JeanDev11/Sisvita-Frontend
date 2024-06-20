@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToggleSidebarService } from '../../../services/toggle-sidebar.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../../../services/usuario.service';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { RouterLink } from '@angular/router';
 export class SidebarComponent implements OnInit{
   isMinimized:boolean = false;
 
-  constructor(private toggleSidebarService: ToggleSidebarService){}
+  constructor(private toggleSidebarService: ToggleSidebarService, private usuarioService: UsuarioService, private router: Router){}
 
   ngOnInit() {
     // Suscribirse al observable.
@@ -25,6 +27,8 @@ export class SidebarComponent implements OnInit{
     });
   }
 
-  
+  logout(){
+    this.usuarioService.logout()
+  }
 
 }

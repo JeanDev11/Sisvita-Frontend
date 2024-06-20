@@ -4,12 +4,11 @@
             <!-- <h2>BIENVENIDO</h2> -->
             <h2 [class.fade]="isSwapped">{{ isSwapped ? 'REGÍSTRATE' : 'BIENVENIDO' }}</h2>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" [(ngModel)]="email" placeholder="E-mail">
+                <input type="email" class="form-control" id="email" placeholder="E-mail" [(ngModel)]="correo_electronico" >
                 <label for="email">E-mail</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" [(ngModel)]="password"
-                    placeholder="Contraseña">
+                <input type="password" class="form-control" id="password" placeholder="Contraseña" [(ngModel)]="contrasena">
                 <label for="password">Contraseña</label>
             </div>
             <!-- <div id="inputNombre" class="form-floating mb-3" [hidden]="!isSwapped">
@@ -18,11 +17,11 @@
             </div> -->
             <div id="typeUserContainer" class="form-floating mb-3 anim-opacity" [hidden]="!isSwapped">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paciente" [(ngModel)]="userType" [value]="'paciente'">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="paciente" [(ngModel)]="rol" [value]="'P'">
                     <label class="form-check-label" for="paciente">Paciente</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="especialista" [(ngModel)]="userType" [value]="'especialista'">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="especialista" [(ngModel)]="rol" [value]="'E'">
                     <label class="form-check-label" for="especialista">Especialista</label>
                 </div>
             </div>
@@ -48,35 +47,53 @@
             </div>
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nombres" placeholder="Nombres">
+                    <input type="text" class="form-control" id="nombres" placeholder="Nombres" [(ngModel)]="nombres">
                     <label for="nombres">Nombres</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos">
+                    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" [(ngModel)]="apellidos">
                     <label for="apellidos">Apellidos</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="nacimiento" placeholder="Fecha de nacimiento">
+                    <input type="date" class="form-control" id="nacimiento" placeholder="Fecha de nacimiento" [(ngModel)]="fecha_nac">
                     <label for="nacimiento">Fecha de nacimiento</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
+                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" [(ngModel)]="telefono">
                     <label for="telefono">Teléfono</label>
                 </div>
 
                 <!-- Expecialista -->
                 <div *ngIf="especialista">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="especialidad" placeholder="Especialidad">
+                        <input type="text" class="form-control" id="especialidad" placeholder="Especialidad" [(ngModel)]="especialidad">
                         <label for="especialidad">Especialidad</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="numColegiatura" placeholder="Número de colegiatura">
+                        <input type="text" class="form-control" id="numColegiatura" placeholder="Número de colegiatura" [(ngModel)]="nro_colegiado">
                         <label for="numColegiatura">Número de colegiatura</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="direccion" placeholder="Dirección de Consultorio">
+                        <input type="text" class="form-control" id="direccion" placeholder="Dirección de Consultorio" [(ngModel)]="direccion_consultorio">
                         <label for="direccion">Dirección de Consultorio</label>
+                    </div>
+                </div>
+
+                <!-- ------- -->
+
+                <!-- Paciente -->
+                <div *ngIf="!especialista">
+                    <div class="form-floating mb-3">
+                        <input type="number" min="1" class="form-control" id="ciclo" placeholder="Ciclo" [(ngModel)]="ciclo">
+                        <label for="ciclo">Ciclo</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="escuela" placeholder="Escuela" [(ngModel)]="carrera">
+                        <label for="escuela">Escuela</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="facultad" placeholder="Facultad" [(ngModel)]="facultad">
+                        <label for="facultad">Facultad</label>
                     </div>
                 </div>
 
@@ -84,11 +101,11 @@
 
                 <div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioSex" id="masculino">
+                        <input class="form-check-input" type="radio" name="flexRadioSex" id="masculino" [(ngModel)]="sexo" [value]="'M'">
                         <label class="form-check-label" for="masculino">Masculino</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioSex" id="femenino">
+                        <input class="form-check-input" type="radio" name="flexRadioSex" id="femenino" [(ngModel)]="sexo" [value]="'F'">
                         <label class="form-check-label" for="femenino">Femenino</label>
                     </div>
                 </div>
@@ -96,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="onSubmitModal()">Guardar</button>
             </div>
         </div>
     </div>

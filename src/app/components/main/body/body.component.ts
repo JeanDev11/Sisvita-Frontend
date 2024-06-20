@@ -1,7 +1,7 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ToggleSidebarService } from '../../../services/toggle-sidebar.service';
 import { RouterOutlet } from '@angular/router';
-import { PersonaService } from '../../../services/persona.service';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-body',
@@ -13,14 +13,16 @@ import { PersonaService } from '../../../services/persona.service';
 export class BodyComponent {
 
   nombreUsuario: string = ""
+
   constructor(private toggleSidebarService: ToggleSidebarService, private el: ElementRef, private renderer: Renderer2,
-    private personaService: PersonaService
+    private usuarioService: UsuarioService
   ){}
 
   ngOnInit(): void {
-    this.personaService.currentUserSubject.subscribe(user => {
+    // 'currentUser', es el observable que necesita suscribirse para obtener actualizaciones en tiempo real.
+    this.usuarioService.currentUser.subscribe(user => {
       if (user) {
-        this.nombreUsuario = user.nombre;
+        this.nombreUsuario = user.nombres;
       } else {
         this.nombreUsuario = "";
       }

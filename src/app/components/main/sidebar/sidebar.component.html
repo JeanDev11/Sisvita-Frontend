@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a [routerLink]="['/']" (click)="logout()">
                     <span class="material-symbols-rounded">logout</span>
                     <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Salir</span>
                 </a>
