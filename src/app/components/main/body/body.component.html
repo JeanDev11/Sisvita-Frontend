@@ -1,0 +1,14 @@
+<div class="nav">
+    <button id="btn-desplegable" class="btn" (click)="toggleSidebar()">
+        <span class="material-symbols-rounded">dock_to_right</span>
+    </button>
+    <span></span>
+    <div>
+        <!-- <p>Melany</p> -->
+        <p>{{ nombreUsuario }}</p>
+        <span class="material-symbols-rounded">person</span>
+    </div>
+</div>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
