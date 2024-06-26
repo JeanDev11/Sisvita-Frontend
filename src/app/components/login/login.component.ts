@@ -37,6 +37,8 @@ export class LoginComponent {
   showModal = false;
   dataRequired = false;
   especialista = false;
+  showSuccessAlert = false;
+  showFailureAlert = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef, private router: Router, private usuarioService: UsuarioService) { }
 
@@ -85,20 +87,29 @@ export class LoginComponent {
       console.log('Datos enviados:', { email: this.correo_electronico, password: this.contrasena });
       this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
         response => {
-          console.log('Login success:', response);
-          // Redirigir a la otra ventana
-          this.router.navigate(['/main']); 
+          // console.log('Login success:', response);
+          this.showSuccessAlert = true;
+          setTimeout(() => {
+            this.closeAlert();
+          }, 1800);
+
+          setTimeout(() => {
+            this.router.navigate(['/main']);
+          }, 2000);
         },
         error => {
-          console.error('Login failed:', error);
-          // Muestrar un mensaje de error al usuario.
+          // console.error('Login failed:', error);
+          this.showFailureAlert = true;
+          setTimeout(() => {
+            this.closeAlert();
+          }, 1800);
         }
       );
 
     }
   }
 
-  onSubmitModal(){
+  onSubmitModal() {
     if (this.rol === 'P') {
       const paciente: Paciente = {
         nombres: this.nombres,
@@ -116,7 +127,7 @@ export class LoginComponent {
       };
 
       // Verificar campos vacíos o nulos
-      if (!paciente.nombres || !paciente.apellidos || !paciente.telefono || !paciente.fecha_nac || !paciente.sexo || 
+      if (!paciente.nombres || !paciente.apellidos || !paciente.telefono || !paciente.fecha_nac || !paciente.sexo ||
         !paciente.ciclo || !paciente.facultad || !paciente.carrera) {
         console.error('Todos los campos son requeridos.');
         return;
@@ -130,8 +141,7 @@ export class LoginComponent {
           this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
             response => {
               console.log('Login success:', response);
-              // Redirigir a la otra ventana
-              this.router.navigate(['/main']); 
+              this.router.navigate(['/main']); // Redirigir a la otra ventana
             },
             error => {
               console.error('Login failed:', error);
@@ -161,7 +171,7 @@ export class LoginComponent {
       };
 
       // Verificar campos vacíos o nulos
-      if (!especialista.nombres || !especialista.apellidos || !especialista.telefono || !especialista.fecha_nac || 
+      if (!especialista.nombres || !especialista.apellidos || !especialista.telefono || !especialista.fecha_nac ||
         !especialista.sexo || !especialista.especialidad || !especialista.nro_colegiado || !especialista.direccion_consultorio) {
         console.error('Todos los campos son requeridos.');
         return;
@@ -175,7 +185,7 @@ export class LoginComponent {
             response => {
               console.log('Login success:', response);
               // Redirigir a la otra ventana
-              this.router.navigate(['/main']); 
+              this.router.navigate(['/main']);
             },
             error => {
               console.error('Login failed:', error);
@@ -194,6 +204,11 @@ export class LoginComponent {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  closeAlert() {
+    this.showSuccessAlert = false;
+    this.showFailureAlert = false;
   }
 
 }

@@ -24,11 +24,25 @@
                     <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Test</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <span class="material-symbols-rounded">chat</span>
-                    <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Chat</span>
+            <li class="d-flex flex-column">
+                <a href="#vigilanciaSubmenu" (click)="toggleVigilanciaSubmenu()" data-bs-toggle="collapse" class="dropdown-toggle">
+                    <span class="material-symbols-rounded">nest_cam_indoor</span>
+                    <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Vigilancia</span>
                 </a>
+                <ul id="vigilanciaSubmenu" [ngClass]="{'submenu-open': submenuOpen, 'submenu-closed': !submenuOpen}" class="list-unstyled submenu">
+                    <li>
+                        <a [routerLink]="['/main/reporte']">
+                            <span class="material-symbols-rounded">lab_profile</span>
+                            <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Reporte</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/main/mapa']">
+                            <span class="material-symbols-rounded">map</span>
+                            <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Mapa de Calor</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#">

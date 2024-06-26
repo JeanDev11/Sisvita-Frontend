@@ -56,6 +56,7 @@ li a{
     /* border: 2px solid orange; */
     width: 100%;
     height: 50px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -99,4 +100,25 @@ ul{
 
 .sidebar ul li:last-child {
     margin-top: auto;
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.submenu-open {
+    max-height: 500px; /* Ajusta este valor según el contenido */
+    padding-left: 15px; /* Espacio de indentación para los submenús */
+}
+
+.submenu-closed {
+    max-height: 0;
+    padding-left: 0;
+}
+
+.dropdown-toggle::after {
+    margin-left: 0;
+    margin-right: 10px;
 }

@@ -18,9 +18,15 @@ export class TestResultadosService {
       test_id: testResultados.test_id,
       usuario_id: testResultados.usuario_id,
       puntaje_obtenido: testResultados.puntaje_obtenido,
-      descripcion: testResultados.descripcion
+      id_nivel: testResultados.id_nivel
     };
+    console.log(body)
 
     return this.http.post<any>(endpointUrl, body);
   }
+
+  getAllResultados(): Observable<TestResultados[]>{
+    return this.http.get<TestResultados[]>(`${this.apiUrl}/test_resultado/get`);
+  }
+
 }

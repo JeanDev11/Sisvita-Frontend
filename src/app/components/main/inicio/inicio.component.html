@@ -1,32 +1,41 @@
 <div class="d-flex flex-column contenedor">
     <p class="fs-3">Hola {{ nombreUsuario }}</p>
-    <p class="fst-italic fs-5 text-center">"Recuerda, cada paso que das te acerca un poco más a tus metas. ¡Sigue adelante con determinación!"</p>
+    <p class="fst-italic fs-5 text-center">"Recuerda, cada paso que das te acerca un poco más a tus metas. ¡Sigue
+        adelante con determinación!"</p>
     <div class="d-flex flex-wrap justify-content-center my-auto">
         <div class="card text-bg-dark">
             <img src="assets/image/consulta_tu_historial.png" class="card-img " alt="...">
             <div class="card-img-overlay bg-opacidad">
-                <h5 class="card-title">Consulta tu Historial</h5>
-                <p class="card-text">Accede fácilmente a un registro de tus sesiones anteriores y 
-                    progreso en tu camino hacia el bienestar emocional.</p>
+                <div>
+                    <h5 class="card-title">Consulta tu Historial</h5>
+                    <p class="card-text">Accede fácilmente a un registro de tus sesiones anteriores y
+                        progreso en tu camino hacia el bienestar emocional.</p>
+                </div>
                 <button type="button" class="btn btn-personal w-25">Ir</button>
             </div>
         </div>
         <div class="card text-bg-dark">
             <img src="assets/image/chatea_con_tu_especialista.png" class="card-img " alt="...">
             <div class="card-img-overlay bg-opacidad">
-                <h5 class="card-title">Chatea con un Especialista</h5>
-                <p class="card-text">Conéctate de forma rápida y confidencial con nuestros profesionales 
-                    para recibir orientación y apoyo personalizado.</p>
+                <div>
+                    <h5 class="card-title">Chatea con un Especialista</h5>
+                    <p class="card-text">Conéctate de forma rápida y confidencial con nuestros profesionales
+                        para recibir orientación y apoyo personalizado.</p>
+                </div>
                 <button type="button" class="btn btn-personal w-25">Ir</button>
             </div>
         </div>
         <div class="card text-bg-dark">
             <img src="assets/image/realizar_test.png" class="card-img " alt="...">
             <div class="card-img-overlay bg-opacidad">
-                <h5 class="card-title">Realizar Test</h5>
-                <p class="card-text">Descubre más sobre ti mismo contestando algunas preguntas clave 
-                    para entender tu situación actual.</p>
-                <button type="button" class="btn btn-personal w-25">Ir</button>
+                <div>
+                    <h5 class="card-title">Realizar Test</h5>
+                    <p class="card-text">Descubre más sobre ti mismo contestando algunas preguntas clave
+                        para entender tu situación actual.</p>
+                </div>
+                <a [routerLink]="['/main/test']">
+                    <button type="button" class="btn btn-personal w-25">Ir</button>
+                </a>
             </div>
         </div>
     </div>
