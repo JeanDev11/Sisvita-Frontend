@@ -20,7 +20,7 @@ export class TestViewComponent {
   preguntas: any[] = [];
   test: Test | undefined;
   puntajeTotal: number = 0;
-  descripcionNivel: string = '';
+  id_nivel: number = 0;
   usuario_id: number = 0;
 
   constructor(private route: ActivatedRoute, private testService: TestService, private nivelTestService: NivelTestService,
@@ -28,6 +28,7 @@ export class TestViewComponent {
   ) { }
 
   ngOnInit(): void {
+    this.getIdUsuario();
     // Obtener el parámetro 'testId' de la URL.
     this.route.params.subscribe(params => {
       const testId = +params['testId']; // Convierte el parámetro a número entero.
@@ -73,15 +74,15 @@ export class TestViewComponent {
     if (testId !== undefined) {
       this.nivelTestService.obtenerNivel(this.puntajeTotal, testId).subscribe(
         response => {
-          if (response.descripcion) {
-            this.descripcionNivel = response.descripcion;
-            console.log('Descripción del nivel:', this.descripcionNivel);
+          if (response.id_nivel) {
+            this.id_nivel = response.id_nivel;
+            console.log('Id del nivel:', this.id_nivel);
 
             const testResultados: TestResultados = {
               test_id: testId,
               usuario_id: this.usuario_id,
               puntaje_obtenido: this.puntajeTotal,
-              descripcion: this.descripcionNivel
+              id_nivel: this.id_nivel
             };
 
             this.testResultadosService.addResultados(testResultados).subscribe(
@@ -113,7 +114,7 @@ export class TestViewComponent {
     // 'currentUser', es el observable que necesita suscribirse para obtener actualizaciones en tiempo real.
     this.usuarioService.currentUser.subscribe(user => {
       if (user) {
-        this.usuario_id = user.id;
+        this.usuario_id = user.usuario_id;
       }
     });
   }

@@ -1,0 +1,50 @@
+<div class="contenedor">
+    <div class="busqueda">
+        <div class="metodo-busqueda">
+            <label for="tipo" class="form-label">Tipo de test:</label>
+            <select id="tipo" class="form-select" aria-label="Default select example" (change)="onTipoTestChange($event)">
+                <option value="Todos" selected>Todos</option>
+                <option value="Test de Ansiedad de Zung">Test de Ansiedad de Zung</option>
+                <option value="Cuestionario de Ansiedad Estado-Rasgo (STAI)">Cuestionario de Ansiedad Estado-Rasgo</option>
+                <option value="Inventario de Ansiedad de Beck (BAI)">Inventario de Ansiedad de Beck</option>
+            </select>
+        </div>
+        <div class="metodo-busqueda">
+            <label for="nivel" class="form-label">Nivel:</label>
+            <select id="nivel" class="form-select" aria-label="Default select example" (change)="onNivelAnsiedadChange($event)">
+                <option value="Todos" selected>Todos</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="metodo-busqueda">
+            <label for="formGroupExampleInput" class="form-label">Fecha:</label>
+            <input type="date" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" (change)="onDateChange($event)">
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th scope="col">!</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Test</th>
+                <th scope="col">Puntaje</th>
+                <th scope="col">Calificación</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let resultado of filteredResultados; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ resultado.usuario?.nombres }}</td>
+                <td>{{ resultado.usuario?.apellidos }}</td>
+                <td>{{ resultado.test?.titulo }}</td>
+                <td>{{ resultado.puntaje_obtenido }}</td>
+                <td>{{ resultado.nivel?.descripcion }}</td>
+                <td>{{ resultado.fecha_creacion }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

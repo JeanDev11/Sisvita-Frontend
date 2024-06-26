@@ -1,0 +1,17 @@
+.busqueda{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.metodo-busqueda{
+    width: 13rem;
+}
+
+.table-header {
+    --bs-table-color: #000;
+    --bs-table-bg: var(--secondary-color);
+    --bs-table-border-color: #c6acae;
+    color: var(--bs-table-color);
+    border-color: black;
+}

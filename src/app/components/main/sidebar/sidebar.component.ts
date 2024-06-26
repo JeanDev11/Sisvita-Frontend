@@ -15,9 +15,14 @@ import { UsuarioService } from '../../../services/usuario.service';
 })
 export class SidebarComponent implements OnInit{
   isMinimized:boolean = false;
+  submenuOpen = false;
 
   constructor(private toggleSidebarService: ToggleSidebarService, private usuarioService: UsuarioService, private router: Router){}
 
+  toggleVigilanciaSubmenu() {
+    this.submenuOpen = !this.submenuOpen;
+  }
+  
   ngOnInit() {
     // Suscribirse al observable.
     // La función de callback que se ejecuta cada vez que el BehaviorSubject emite un nuevo valor.
