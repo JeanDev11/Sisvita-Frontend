@@ -20,3 +20,29 @@ export interface TestResultados {
         apellidos: string;
     };
 }
+
+export interface TestResultadosInput {
+    resultado_id?: number;
+    puntaje_obtenido: number;
+    fecha_creacion?: string;
+    test: {
+        test_id: number;
+        titulo: string;
+    };
+    nivel: {
+        id_nivel: number;
+        descripcion: string;
+        semaforo: string;
+    };
+    usuario: {
+        usuario_id: number;
+        nombres: string;
+        apellidos: string;
+        ubigeo: {
+            id_ubigeo: number;
+            departamento: string;
+            latitud: number;
+            longitud: number
+        };
+    };
+}

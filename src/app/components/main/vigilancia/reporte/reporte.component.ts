@@ -70,11 +70,11 @@ export class ReporteComponent implements OnInit {
   getBackgroundColor(resultado: TestResultados): string {
     if (resultado.nivel?.semaforo) {
       switch (resultado.nivel.semaforo.toLowerCase()) {
-        case 'rojo':
+        case 'alto':
           return 'red';
-        case 'verde':
+        case 'bajo':
           return 'green';
-        case 'amarillo':
+        case 'medio':
           return 'yellow';
         case 'naranja':
           return 'orange';

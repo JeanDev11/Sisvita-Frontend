@@ -1,3 +1,31 @@
-<google-map height="700px" width="100%" [center]="center" [zoom]="zoom">
-    <map-heatmap-layer [data]="heatmapData" [options]="heatmapOptions" />
-</google-map>
+<div class="contenedor">
+    <div class="busqueda">
+        <div class="metodo-busqueda">
+            <label for="tipo" class="form-label">Tipo de test:</label>
+            <select id="tipo" class="form-select" aria-label="Default select example" (change)="onTipoTestChange($event)">
+                <option value="Todos" selected>Todos</option>
+                <option value="Test de Ansiedad de Zung">Test de Ansiedad de Zung</option>
+                <option value="Cuestionario de Ansiedad Estado-Rasgo (STAI)">Cuestionario de Ansiedad Estado-Rasgo</option>
+                <option value="Inventario de Ansiedad de Beck (BAI)">Inventario de Ansiedad de Beck</option>
+            </select>
+        </div>
+        <div class="metodo-busqueda">
+            <label for="nivel" class="form-label">Nivel:</label>
+            <select id="nivel" class="form-select" aria-label="Default select example" (change)="onNivelAnsiedadChange($event)">
+                <option value="Todos" selected>Todos</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+        <div class="metodo-busqueda">
+            <label for="formGroupExampleInput" class="form-label">Fecha:</label>
+            <input type="date" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" (change)="onDateChange($event)">
+        </div>
+    </div>
+    <div>
+        <google-map height="700px" width="100%" [center]="center" [zoom]="zoom">
+            <map-heatmap-layer [data]="heatmapData" [options]="heatmapOptions" />
+        </google-map>
+    </div>
+</div>
