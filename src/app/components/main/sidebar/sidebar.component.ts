@@ -16,6 +16,8 @@ import { UsuarioService } from '../../../services/usuario.service';
 export class SidebarComponent implements OnInit{
   isMinimized:boolean = false;
   submenuOpen = false;
+  isSpecialist:boolean = false;
+  rol:String = '';
 
   constructor(private toggleSidebarService: ToggleSidebarService, private usuarioService: UsuarioService, private router: Router){}
 
@@ -30,10 +32,24 @@ export class SidebarComponent implements OnInit{
     this.toggleSidebarService.toggleSidebar$.subscribe((toggle: boolean) => {
       this.isMinimized = toggle;
     });
+    this.getRolUsuario();
+    if(this.rol === 'E'){
+      this.isSpecialist = true;
+    }
+
   }
 
   logout(){
     this.usuarioService.logout()
+  }
+
+  getRolUsuario(): void {
+    // 'currentUser', es el observable que necesita suscribirse para obtener actualizaciones en tiempo real.
+    this.usuarioService.currentUser.subscribe(user => {
+      if (user) {
+        this.rol = user.rol;
+      }
+    });
   }
 
 }
