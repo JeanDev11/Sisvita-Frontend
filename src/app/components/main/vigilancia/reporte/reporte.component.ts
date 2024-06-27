@@ -38,7 +38,7 @@ export class ReporteComponent implements OnInit {
   applyFilters(): void {
     this.filteredResultados = this.testResultados.filter(result => {
       const matchTipo = this.tipoTest === 'Todos' || result.test?.titulo === this.tipoTest;
-      const matchNivel = this.nivelAnsiedad === 'Todos' || result.nivel?.descripcion === this.nivelAnsiedad;
+      const matchNivel = this.nivelAnsiedad === 'Todos' || result.nivel?.semaforo === this.nivelAnsiedad;
       // Convertir la fecha de resultado al formato 'aaaa-mm-dd' para comparar con this.selectedDate
       const formattedFechaCreacion = result.fecha_creacion ?
         result.fecha_creacion.split(' ')[0].split('-').reverse().join('-') : '';
@@ -66,8 +66,23 @@ export class ReporteComponent implements OnInit {
     this.applyFilters();
   }
 
-  // Método para determinar el color de fondo
-  getBackgroundColor(index: number): string {
-    return index % 2 === 0 ? 'lightblue' : 'lightgreen'; // Alterna entre azul claro y verde claro
+  // Método para determinar el color de fondo dinámico
+  getBackgroundColor(resultado: TestResultados): string {
+    if (resultado.nivel?.semaforo) {
+      switch (resultado.nivel.semaforo.toLowerCase()) {
+        case 'rojo':
+          return 'red';
+        case 'verde':
+          return 'green';
+        case 'amarillo':
+          return 'yellow';
+        case 'naranja':
+          return 'orange';
+        default:
+          return 'white'; // Color por defecto.
+      }
+    } else {
+      return 'white'; // Manejar caso cuando no hay valor en resultado.nivel.semaforo
+    }
   }
 }

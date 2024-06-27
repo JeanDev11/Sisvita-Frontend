@@ -13,9 +13,9 @@
             <label for="nivel" class="form-label">Nivel:</label>
             <select id="nivel" class="form-select" aria-label="Default select example" (change)="onNivelAnsiedadChange($event)">
                 <option value="Todos" selected>Todos</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="Verde">Verde</option>
+                <option value="Amarillo">Amarillo</option>
+                <option value="Rojo">Rojo</option>
             </select>
         </div>
         <div class="metodo-busqueda">
@@ -26,7 +26,7 @@
     <table class="table table-striped">
         <thead class="table-header">
             <tr>
-                <th scope="col">!</th>
+                <th scope="col">N</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Test</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let resultado of filteredResultados; let i = index">
-                <th scope="row" [ngStyle]="{'background-color': getBackgroundColor(i)}">{{ i + 1 }}</th>
+                <th scope="row" [ngStyle]="{'background-color': getBackgroundColor(resultado)}"></th>
                 <td>{{ resultado.usuario?.nombres }}</td>
                 <td>{{ resultado.usuario?.apellidos }}</td>
                 <td>{{ resultado.test?.titulo }}</td>

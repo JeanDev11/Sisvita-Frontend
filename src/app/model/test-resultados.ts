@@ -12,6 +12,7 @@ export interface TestResultados {
     nivel?: {
         id_nivel: number;
         descripcion: string;
+        semaforo: string;
     };
     usuario?: {
         usuario_id: number;
