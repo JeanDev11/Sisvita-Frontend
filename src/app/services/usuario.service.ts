@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paciente } from '../model/paciente';
+import { Usuario } from '../model/usuario';
 import { Especialista } from '../model/especialista';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -23,6 +24,10 @@ export class UsuarioService {
   }
 
   private apiUrl = 'http://127.0.0.1:5000/usuarios';
+
+  getUsuariosAll(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/getall`);
+  }
 
   addEspecialista(especialista: Especialista): Observable<any> {
     let endpointUrl = `${this.apiUrl}/insert`;

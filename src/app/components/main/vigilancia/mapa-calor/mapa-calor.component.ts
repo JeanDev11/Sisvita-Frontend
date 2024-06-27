@@ -1,47 +1,58 @@
-// import { Component, OnInit } from '@angular/core';
-// import * as L from 'leaflet';
-// import 'leaflet/dist/leaflet.css';
-// import 'leaflet.heat'; // Asegúrate de importar el plugin de heatmap
+import { Component, OnInit } from '@angular/core';
+import {GoogleMap, MapHeatmapLayer} from '@angular/google-maps';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { Usuario } from '../../../../model/usuario';
 
-// @Component({
-//   selector: 'app-mapa-calor',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './mapa-calor.component.html',
-//   styleUrl: './mapa-calor.component.css'
-// })
-// export class MapaCalorComponent implements OnInit {
-//   private map: L.Map;
+@Component({
+    selector: 'app-mapa-calor',
+    standalone: true,
+    imports: [GoogleMap, MapHeatmapLayer],
+    templateUrl: './mapa-calor.component.html',
+    styleUrl: './mapa-calor.component.css'
+})
+export class MapaCalorComponent implements OnInit {
 
-//   constructor() {
-//     this.map = L.map('map');
-//   }
+    center = { lat: -9.189967, lng: -75.015152 }; // Centro de Perú
+    zoom = 6;
+    heatmapOptions = { radius: 20 };
+    heatmapData: { lat: number, lng: number }[] = [];
 
-//   ngOnInit(): void {
-//     this.initMap();
-//     this.loadHeatMapData();
-//   }
+    constructor(private usuarioService: UsuarioService) {}
 
-//   private initMap(): void {
-//     this.map = L.map('map').setView([-9.19, -75.0152], 5); // Coordenadas centrales de Perú
+    ngOnInit(): void {
+        this.usuarioService.getUsuariosAll().subscribe(
+            (usuarios: Usuario[]) => {
+                this.heatmapData = usuarios
+                    .filter(usuario => usuario.ubigeo) // Filtrar usuarios que tienen ubicación definida
+                    .map(usuario => ({ lat: usuario.ubigeo!.latitud, lng: usuario.ubigeo!.longitud }));
+            },
+            error => {
+                console.error('Error al obtener usuarios', error);
+            }
+        );
+    }
 
-//     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//       maxZoom: 18,
-//       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//     }).addTo(this.map);
-//   }
 
-//   private loadHeatMapData(): void {
-//     // Datos de ejemplo
-//     const heatData = [
-//       [-12.0464, -77.0428, 0.8], // Lima
-//       [-13.1631, -72.5450, 0.5], // Cusco
-//       [-16.4090, -71.5375, 0.7], // Arequipa
-//       [-6.7714, -79.8409, 0.6],  // Chiclayo
-//       [-8.1091, -79.0215, 0.9]   // Trujillo
-//     ];
 
-//     // Asegúrate de que L.heatLayer está disponible
-//     const heat = (L as any).heatLayer(heatData, { radius: 25 }).addTo(this.map);
-//   }
-// }
+
+
+
+
+    // center = { lat: -9.189967, lng: -75.015152 }; // Centro de Perú
+    // zoom = 6; // Nivel de zoom adecuado para visualizar todo el país
+    // heatmapOptions = { radius: 20 };
+    // heatmapData = [
+    //     { lat: -12.046374, lng: -77.042793 }, // Lima
+    //     { lat: -13.53195, lng: -71.967463 },  // Cusco
+    //     { lat: -16.409047, lng: -71.537451 }, // Arequipa
+    //     { lat: -3.74912, lng: -73.25383 },    // Iquitos
+    //     { lat: -12.058044, lng: -75.204826 }, // Huancayo
+    //     { lat: -6.771431, lng: -79.840881 },  // Chiclayo
+    //     { lat: -8.109052, lng: -79.021533 },  // Trujillo
+    //     { lat: -5.19449, lng: -80.63282 },    // Piura
+    //     { lat: -14.834308, lng: -74.932814 }, // Ayacucho
+    //     { lat: -12.137, lng: -76.964 },       // Chosica
+    //     { lat: -15.840221, lng: -70.021881 }, // Puno
+    //     { lat: -6.495471, lng: -76.364468 },  // Tarapoto
+    // ];
+}
