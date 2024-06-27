@@ -44,7 +44,7 @@ export class ReporteComponent implements OnInit {
         result.fecha_creacion.split(' ')[0].split('-').reverse().join('-') : '';
 
       const matchDate = this.selectedDate === '' || formattedFechaCreacion === this.selectedDate;
-      
+
       return matchTipo && matchNivel && matchDate;
     });
   }
@@ -66,5 +66,8 @@ export class ReporteComponent implements OnInit {
     this.applyFilters();
   }
 
-
+  // Método para determinar el color de fondo
+  getBackgroundColor(index: number): string {
+    return index % 2 === 0 ? 'lightblue' : 'lightgreen'; // Alterna entre azul claro y verde claro
+  }
 }

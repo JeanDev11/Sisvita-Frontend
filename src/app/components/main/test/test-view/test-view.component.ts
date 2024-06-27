@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../../services/test.service';
 import { NivelTestService } from '../../../../services/nivel-test.service';
 import { TestResultadosService } from '../../../../services/test-resultados.service';
@@ -8,11 +8,12 @@ import { TestResultados } from '../../../../model/test-resultados';
 import { Test } from '../../../../model/test';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { ModalComponent } from '../../../atom/modal/modal.component';
 
 @Component({
   selector: 'app-test-view',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalComponent],
   templateUrl: './test-view.component.html',
   styleUrl: './test-view.component.css'
 })
@@ -24,7 +25,7 @@ export class TestViewComponent {
   usuario_id: number = 0;
 
   constructor(private route: ActivatedRoute, private testService: TestService, private nivelTestService: NivelTestService,
-    private testResultadosService: TestResultadosService, private usuarioService: UsuarioService
+    private testResultadosService: TestResultadosService, private usuarioService: UsuarioService, private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +78,7 @@ export class TestViewComponent {
           if (response.id_nivel) {
             this.id_nivel = response.id_nivel;
             console.log('Id del nivel:', this.id_nivel);
+            const descripcion = response.descripcion;
 
             const testResultados: TestResultados = {
               test_id: testId,
@@ -88,7 +90,9 @@ export class TestViewComponent {
             this.testResultadosService.addResultados(testResultados).subscribe(
               response => {
                 console.log('Resultados guardados exitosamente:', response);
-                // Maneja la respuesta según sea necesario
+                // Mostrar el modal con los resultados
+                this.modalMensaje = `Puntaje obtenido: ${this.puntajeTotal}<br>Prescripción: ${descripcion}`;
+                this.openModal();
               },
               error => {
                 console.error('Error al guardar los resultados:', error);
@@ -117,5 +121,18 @@ export class TestViewComponent {
         this.usuario_id = user.usuario_id;
       }
     });
+  }
+
+  // MODAL
+  modalTitulo: string = 'Resultado del Test';
+  modalMensaje: string = '';
+  showModal: boolean = false;
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

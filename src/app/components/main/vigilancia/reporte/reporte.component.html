@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let resultado of filteredResultados; let i = index">
-                <th scope="row">{{ i + 1 }}</th>
+                <th scope="row" [ngStyle]="{'background-color': getBackgroundColor(i)}">{{ i + 1 }}</th>
                 <td>{{ resultado.usuario?.nombres }}</td>
                 <td>{{ resultado.usuario?.apellidos }}</td>
                 <td>{{ resultado.test?.titulo }}</td>
