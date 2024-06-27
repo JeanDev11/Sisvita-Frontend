@@ -24,7 +24,7 @@
                     <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Test</span>
                 </a>
             </li>
-            <li class="d-flex flex-column">
+            <li *ngIf="isSpecialist" class="d-flex flex-column">
                 <a href="#vigilanciaSubmenu" (click)="toggleVigilanciaSubmenu()" data-bs-toggle="collapse" class="dropdown-toggle">
                     <span class="material-symbols-rounded">nest_cam_indoor</span>
                     <span class="name-option" [ngClass]="{'name-option-oculto': isMinimized}">Vigilancia</span>
