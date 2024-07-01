@@ -1,40 +1,67 @@
 body {
-    background-color: #f8f9fa;
-  }
-  
-  header {
-    margin-bottom: 20px;
-  }
-  
-  .navbar {
-    padding: 1rem;
-  }
-  
-  .navbar-brand img {
-    margin-right: 10px;
-  }
-  
-  .main {
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .lead {
-    font-size: 1.25rem;
-    margin-bottom: 20px;
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  
+  background-color: #f8f9fa;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.navbar {
+  padding: 1rem;
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.main {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-custom {
+  background-color: #7033ff; 
+  color: white;
+}
+
+.btn-custom:hover {
+  background-color: #a661ff; 
+}
+
+/* Estilos para el pie de página */
+footer {
+  background-color: #8d73e9;
+  color: white; 
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer img {
+  max-width: 150px; 
+  height: auto;
+  margin-bottom: 10px;
+}
+
+footer p {
+  font-size: 1rem;
+  margin: 0;
+}
