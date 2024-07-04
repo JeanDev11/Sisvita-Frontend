@@ -10,7 +10,7 @@ export class EmailService {
   constructor() { }
   private serviceID = 'service_dcsaf9m';
   private templateID = 'template_ifzy1l9';
-  private userID = '';
+  private userID = 'nO4fR4lgG_7y8a22P';
 
   sendEmail(emailData: EmailData): Promise<EmailJSResponseStatus> {
     const templateParams = {

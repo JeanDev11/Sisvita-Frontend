@@ -1,10 +1,54 @@
-body {
-  background-color: var(--primary-color);
+.bg {
+  background-color: var(--background-color);
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%; */
 }
 
 header {
   margin-bottom: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
+}
+
+.name-icon {
+  font-family: "LXGW WenKai TC", cursive;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.4rem;
+}
+
+#logo {
+  height: 50px;
+  width: 50px;
+}
+
+.nombre-app{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav {
+  display: flex;
+  background-color: var(--background-color);
+  justify-content: space-between;
+  padding: 15px;
+
+}
+
+#navbarNav {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 50px;
+  font-size: 1.2em;
+}
+
+.nav-item{
+  margin: auto 0;
+  margin-left: 10px;
 }
 
 .navbar {
@@ -40,24 +84,24 @@ img {
 }
 
 .btn-custom {
-  background-color: #7033ff; 
+  background-color: #7033ff;
   color: white;
 }
 
 .btn-custom:hover {
-  background-color: #a661ff; 
+  background-color: #a661ff;
 }
 
 /* Estilos para el pie de página */
 footer {
   background-color: #8d73e9;
-  color: white; 
+  color: white;
   text-align: center;
   padding: 20px 0;
 }
 
 footer img {
-  max-width: 150px; 
+  max-width: 150px;
   height: auto;
   margin-bottom: 10px;
 }
