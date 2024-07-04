@@ -253,7 +253,7 @@ export class LoginComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
-    this.limpiarCampos();
+    // this.limpiarCampos();
   }
 
   limpiarCampos() {
