@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TestResultados, TestResultadosInput } from '../model/test-resultados';
+import { TestResultados, TestResultadosImport } from '../model/test-resultados';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,8 +25,8 @@ export class TestResultadosService {
     return this.http.post<any>(endpointUrl, body);
   }
 
-  getAllResultados(): Observable<TestResultadosInput[]>{
-    return this.http.get<TestResultadosInput[]>(`${this.apiUrl}/test_resultado/get`);
+  getAllResultados(): Observable<TestResultadosImport[]>{
+    return this.http.get<TestResultadosImport[]>(`${this.apiUrl}/test_resultado/get`);
   }
 
 }

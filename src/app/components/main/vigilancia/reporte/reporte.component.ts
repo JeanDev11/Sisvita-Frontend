@@ -1,26 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { TestResultadosService } from '../../../../services/test-resultados.service';
-import { TestResultados } from '../../../../model/test-resultados';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TestResultadosImport } from '../../../../model/test-resultados';
+import { TiposDiagnostico } from '../../../../model/tipos-diagnostico';
+import { TiposTratamiento } from '../../../../model/tipos-tratamiento';
+import { TestResultadosService } from '../../../../services/test-resultados.service';
+import { TiposDiagnosticoService } from '../../../../services/tipos-diagnostico.service';
+import { TiposTratamientoService } from '../../../../services/tipos-tratamiento.service';
+import { DiagnosticoService } from '../../../../services/diagnostico.service';
+import { EvaluacionPacienteService } from '../../../../services/evaluacion-paciente.service';
+import { TratamientoService } from '../../../../services/tratamiento.service';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { EspecialistaService } from '../../../../services/especialista.service';
+import { EmailService } from '../../../../services/email.service';
+import { Diagnostico } from '../../../../model/diagnostico';
+import { Tratamiento } from '../../../../model/tratamiento';
+import { EvaluacionPaciente } from '../../../../model/evaluacion-paciente';
 
 @Component({
   selector: 'app-reporte',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './reporte.component.html',
   styleUrl: './reporte.component.css'
 })
 export class ReporteComponent implements OnInit {
-  testResultados: TestResultados[] = [];
-  filteredResultados: TestResultados[] = [];
+  testResultados: TestResultadosImport[] = [];
+  filteredResultados: TestResultadosImport[] = [];
+  listTT: TiposTratamiento[] = [];
+  listTD: TiposDiagnostico[] = [];
   tipoTest: string = 'Todos';
   nivelAnsiedad: string = 'Todos';
   selectedDate: string = '';
+  showModal = false;
+  isChecked: boolean = false ;
+  selectedResultado: TestResultadosImport | null = null;
+  especialista_id: number = 0;
+  especialista_nombre: string = '';
 
-  constructor(private testResultadosService: TestResultadosService) { }
+  selectedDiagnosticoId: number = 0;
+  fundamentacionCientifica: string = '';
+  selectedTratamientos: { id: number, descripcion: string }[] = [];
+
+  tratamientoSeleccionado: number = 0; // Variable para almacenar el tratamiento seleccionado
+  tratamientoDescripcion: string = ''; // Variable para la descripción del tratamiento en el textarea
+  comuMensaje: string = ''; // Variable para el mensaje de la comunicación
+
+  // Campos específicos para la alerta generalizada 
+  alertMessage: string | null = null;
+  alertType: string | null = null;
+  
+  constructor(private testResultadosService: TestResultadosService, private tiposDiagnosticoService: TiposDiagnosticoService,
+    private tiposTratamientoService: TiposTratamientoService, private diagnosticoService: DiagnosticoService,
+    private tratamientoService: TratamientoService, private evaluacionPacienteService: EvaluacionPacienteService,
+    private usuarioService: UsuarioService, private especialistaService: EspecialistaService, private emailService: EmailService,
+  ) { }
 
   ngOnInit(): void {
     this.loadResultados();
+    this.loadTiposTD();
+    this.getIdUsuario();
   }
 
   loadResultados(): void {
@@ -35,16 +74,34 @@ export class ReporteComponent implements OnInit {
     );
   }
 
+  loadTiposTD(): void {
+    this.tiposTratamientoService.getAllTipoTratamiento().subscribe(
+      (data) =>{
+        this.listTT = data;
+      },
+      (error) => {
+        console.error('Error al obtener tipos de tratamientos:', error);
+      }
+    )
+
+    this.tiposDiagnosticoService.getAllTipoDiagnostico().subscribe(
+      (data) =>{
+        this.listTD = data;
+      },
+      (error) => {
+        console.error('Error al obtener tipos de diagnostico:', error);
+      }
+    )
+  }
+
   applyFilters(): void {
     this.filteredResultados = this.testResultados.filter(result => {
-      const matchTipo = this.tipoTest === 'Todos' || result.test?.titulo === this.tipoTest;
-      const matchNivel = this.nivelAnsiedad === 'Todos' || result.nivel?.semaforo === this.nivelAnsiedad;
+      const matchTipo = this.tipoTest === 'Todos' || result.test__rel?.titulo === this.tipoTest;
+      const matchNivel = this.nivelAnsiedad === 'Todos' || result.nivel__rel?.semaforo === this.nivelAnsiedad;
       // Convertir la fecha de resultado al formato 'aaaa-mm-dd' para comparar con this.selectedDate
       const formattedFechaCreacion = result.fecha_creacion ?
         result.fecha_creacion.split(' ')[0].split('-').reverse().join('-') : '';
-
       const matchDate = this.selectedDate === '' || formattedFechaCreacion === this.selectedDate;
-
       return matchTipo && matchNivel && matchDate;
     });
   }
@@ -67,9 +124,9 @@ export class ReporteComponent implements OnInit {
   }
 
   // Método para determinar el color de fondo dinámico
-  getBackgroundColor(resultado: TestResultados): string {
-    if (resultado.nivel?.semaforo) {
-      switch (resultado.nivel.semaforo.toLowerCase()) {
+  getBackgroundColor(resultado: TestResultadosImport): string {
+    if (resultado.nivel__rel?.semaforo) {
+      switch (resultado.nivel__rel.semaforo.toLowerCase()) {
         case 'alto':
           return 'red';
         case 'bajo':
@@ -84,5 +141,174 @@ export class ReporteComponent implements OnInit {
     } else {
       return 'white'; // Manejar caso cuando no hay valor en resultado.nivel.semaforo
     }
+  }
+
+  openModal(resultado: TestResultadosImport): void {
+    this.selectedResultado = resultado;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.openAlert('La evaluación se registró exitosamente.', 'alert-success');
+    // this.limpiarCampos() Corregir!!!!
+  }
+
+  addTratamiento() {
+    const selectedTratamientoId = Number((<HTMLSelectElement>document.getElementById('tratamiento')).value);
+    const selectedTratamientoNombre = this.listTT.find(tt => tt.id_tipo_tratamiento === selectedTratamientoId)?.nombre_tratamiento;
+
+    if (selectedTratamientoId !== 0 && selectedTratamientoNombre) {
+      this.selectedTratamientos.push({
+        id: selectedTratamientoId,
+        descripcion: selectedTratamientoNombre,
+      });
+
+      // Obtener el número de tratamiento actual (índice + 1)
+      const numeroTratamiento = this.selectedTratamientos.length;
+
+      // Agregar el nombre del tratamiento y la descripción al textarea
+      this.tratamientoDescripcion += `${numeroTratamiento}. ${selectedTratamientoNombre}\n`;
+      console.log('selectedTratamientos+:', this.selectedTratamientos);
+      // Limpiar la selección del select
+      this.tratamientoSeleccionado = 0;
+    }
+  }
+
+  guardarEvaluacion() {    
+    if (this.selectedResultado && this.selectedDiagnosticoId !== 0 ) {
+      const resultado_id = this.selectedResultado.resultado_id;
+      // Primero insertamos el diagnóstico
+      const diagnostico: Diagnostico = {
+        id_tipo_diagnostico: this.selectedDiagnosticoId,
+        fundamentacion_cientifica: this.fundamentacionCientifica,
+      };
+  
+      this.diagnosticoService.insertDiagnostico(diagnostico).subscribe(
+        (response) => {
+          console.log('Diagnóstico registrado correctamente:', response);
+  
+          // Ahora podemos insertar la evaluación del paciente
+          const evaluacionPaciente: EvaluacionPaciente = {
+            id_diagnostico: response.data.id_diagnostico,
+            especialista_id: this.especialista_id,
+            resultado_id: resultado_id,
+          };
+          
+          this.evaluacionPacienteService.insertEvaluacionPaciente(evaluacionPaciente).subscribe(
+            (response) => {
+              console.log('Evaluación registrada correctamente:', response);
+
+              // Por último, insertamos los tratamientos
+              let tratamientosRegistrados = 0;
+              const totalTratamientos = this.selectedTratamientos.length;
+
+              this.selectedTratamientos.forEach((tratamiento) => {
+                const tratamientoData: Tratamiento = {
+                  id_tipo_tratamiento: tratamiento.id,
+                  id_diagnostico: response.data.id_diagnostico,
+                };
+                console.log('tratamientoData :', tratamientoData);
+
+                this.tratamientoService.insertTratamiento(tratamientoData).subscribe(
+                  (response) => {
+                    console.log('Tratamiento registrado correctamente:', response);
+                    tratamientosRegistrados++;
+
+                    // Verificar si todos los tratamientos se han registrado
+                    if (tratamientosRegistrados === totalTratamientos) {
+                      // Mostrar la alerta de éxito aquí
+                      this.openAlert('La evaluación se registró exitosamente.', 'alert-success');
+                      console.log('La evaluación se registró exitosamente.');
+                      // this.enviarEmail();
+
+                      if (this.isChecked) {
+                        // Llamar a la función para enviar el email
+                        this.enviarEmail();
+                        console.log(this.isChecked)
+                      }
+                    }
+                  },
+                  (error) => {
+                    console.error('Error al registrar tratamiento:', error);
+                  }
+                );
+              });
+            },
+            (error) => {
+              console.error('Error al registrar evaluación:', error);
+              this.openAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
+            }
+          );
+        },
+        (error) => {
+          console.error('Error al registrar diagnóstico:', error);
+          this.openAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
+        }
+      );
+    }
+    this.closeModal();
+  }
+
+  getIdUsuario(): void {
+    this.usuarioService.currentUser.subscribe(user => {
+      if (user) {
+        this.especialistaService.getEspecialista(user.usuario_id).subscribe((especialista) => {
+          if(especialista.especialista_id){
+            this.especialista_id = especialista.especialista_id; // Asignar el especialista_id obtenido
+            this.especialista_nombre = user.nombres;
+          }
+        }, (error) => {
+          console.error('Error al obtener el especialista:', error);
+        });
+      }
+    });
+  }
+
+  enviarEmail() {
+    if (this.selectedResultado) {
+      const emailData = {
+        nombre_del_paciente: this.selectedResultado?.usuario__rel.nombres,
+        nombre_de_la_especialista: this.especialista_nombre,
+        nombre_del_test: this.selectedResultado?.test__rel.titulo,
+        recomendaciones: this.tratamientoDescripcion,
+        mensaje: this.comuMensaje,
+        to_email: this.selectedResultado?.usuario__rel.correo_electronico,
+      };
+
+      this.emailService.sendEmail(emailData)
+        .then(() => console.log('Email enviado con éxito'))
+        .catch(error => console.error('Error al enviar email', error));
+    }
+
+  }
+
+  toggleNotificacion(event: any) {
+    this.isChecked = event.target.checked;
+    console.log(this.isChecked)
+    
+  }
+
+  openAlert(mensaje: string, tipo: string) {
+    this.alertMessage = mensaje;
+    this.alertType = tipo;
+  
+    setTimeout(() => {
+      this.closeAlert();
+    }, 1800);
+  }
+
+  closeAlert() {
+    this.alertMessage = null;
+    this.alertType = null;
+  }
+
+  limpiarCampos() {
+    this.selectedDiagnosticoId = 0;
+    this.fundamentacionCientifica = '';
+    this.selectedTratamientos = [];
+    this.tratamientoSeleccionado = 0;
+    this.tratamientoDescripcion = '';
+    this.comuMensaje = '';
   }
 }
