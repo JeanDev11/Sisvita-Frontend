@@ -7,9 +7,11 @@ export interface Paciente {
     rol: string;
     es_paciente: boolean;
     telefono: string;
+    dni: string;
     fecha_nac: string;
     sexo: string;
     ciclo: number;
     facultad: string;
     carrera: string;
+    id_ubigeo: number;
 }

@@ -1,6 +1,5 @@
 <div class="bg">
-    <div *ngIf="showSuccessAlert" class="alert alert-success scale-up-center z-3" role="alert">Login exitoso. ¡Bienvenido!</div>
-    <div *ngIf="showFailureAlert" class="alert alert-danger scale-up-center z-3" role="alert">Usuario no encontrado!.</div>
+    <div *ngIf="alertMessage" [ngClass]="'alert ' + alertType + ' scale-up-center z-3'" role="alert">{{ alertMessage }}</div>
     <div class="content" [class.swap]="isSwapped">
         <div id="formId" class="formulario ">
             <!-- <h2>BIENVENIDO</h2> -->
@@ -44,7 +43,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal anim-opacity" tabindex="-1" [ngClass]="{'show': showModal}"
+<div class="modal anim-opacity z-2" tabindex="-1" [ngClass]="{'show': showModal}"
     [style.display]="showModal ? 'block' : 'none'" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content scale-up-center">
@@ -61,14 +60,58 @@
                         [(ngModel)]="apellidos">
                     <label for="apellidos">Apellidos</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="nacimiento" placeholder="Fecha de nacimiento"
-                        [(ngModel)]="fecha_nac">
-                    <label for="nacimiento">Fecha de nacimiento</label>
+                <div class="dosDiv">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="nacimiento" placeholder="Fecha de nacimiento"
+                            [(ngModel)]="fecha_nac">
+                        <label for="nacimiento">Fecha de nacimiento</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="telefono" placeholder="Teléfono"
+                            [(ngModel)]="telefono">
+                        <label for="telefono">Teléfono</label>
+                    </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" [(ngModel)]="telefono">
-                    <label for="telefono">Teléfono</label>
+                    <input type="number" class="form-control" id="dni" placeholder="DNI"
+                        [(ngModel)]="dni">
+                    <label for="dni">DNI</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioSex" id="masculino"
+                            [(ngModel)]="sexo" [value]="'M'">
+                        <label class="form-check-label" for="masculino">Masculino</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioSex" id="femenino"
+                            [(ngModel)]="sexo" [value]="'F'">
+                        <label class="form-check-label" for="femenino">Femenino</label>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <select id="departamento" class="form-select" aria-label="Default select example"
+                        (change)="onDepartamentoChange($event)" [(ngModel)]="selectedDepartamento">
+                        <option value="" selected>---</option>
+                        <option *ngFor="let depto of departamentos" [value]="depto">{{ depto }}</option>
+                    </select>
+                    <label for="departamento">Departamento</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select id="provincia" class="form-select" aria-label="Default select example"
+                        (change)="onProvinciaChange($event)" [disabled]="!selectedDepartamento">
+                        <option value="" selected>---</option>
+                        <option *ngFor="let prov of provincias" [value]="prov">{{ prov }}</option>
+                    </select>
+                    <label for="provincia">Provincia</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select id="distrito" class="form-select" aria-label="Default select example"
+                        (change)="onDistritoChange($event)" [disabled]="!selectedProvincia">
+                        <option value="" selected>---</option>
+                        <option *ngFor="let dist of distritos" [value]="dist">{{ dist }}</option>
+                    </select>
+                    <label for="distrito">Distrito</label>
                 </div>
 
                 <!-- Expecialista -->
@@ -79,7 +122,7 @@
                         <label for="especialidad">Especialidad</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="numColegiatura" placeholder="Número de colegiatura"
+                        <input type="number" class="form-control" id="numColegiatura" placeholder="Número de colegiatura"
                             [(ngModel)]="nro_colegiado">
                         <label for="numColegiatura">Número de colegiatura</label>
                     </div>
@@ -113,19 +156,6 @@
 
                 <!-- ------- -->
 
-                <div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioSex" id="masculino"
-                            [(ngModel)]="sexo" [value]="'M'">
-                        <label class="form-check-label" for="masculino">Masculino</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioSex" id="femenino"
-                            [(ngModel)]="sexo" [value]="'F'">
-                        <label class="form-check-label" for="femenino">Femenino</label>
-                    </div>
-                </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
@@ -134,5 +164,3 @@
         </div>
     </div>
 </div>
-
-

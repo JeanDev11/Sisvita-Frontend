@@ -40,11 +40,13 @@ export class UsuarioService {
       rol: especialista.rol,
       es_paciente: especialista.es_paciente,
       telefono: especialista.telefono,
+      dni: especialista.dni,
       fecha_nac: especialista.fecha_nac,
       sexo: especialista.sexo,
       especialidad: especialista.especialidad,
       nro_colegiado: especialista.nro_colegiado,
-      direccion_consultorio: especialista.direccion_consultorio
+      direccion_consultorio: especialista.direccion_consultorio,
+      id_ubigeo: especialista.id_ubigeo,
     };
 
     return this.http.post<any>(endpointUrl, body);
@@ -61,11 +63,13 @@ export class UsuarioService {
       rol: paciente.rol,
       es_paciente: paciente.es_paciente,
       telefono: paciente.telefono,
+      dni: paciente.dni,
       fecha_nac: paciente.fecha_nac,
       sexo: paciente.sexo,
       ciclo: paciente.ciclo,
       facultad: paciente.facultad,
-      carrera: paciente.carrera
+      carrera: paciente.carrera,
+      id_ubigeo: paciente.id_ubigeo,
     };
 
     return this.http.post<any>(endpointUrl, body);

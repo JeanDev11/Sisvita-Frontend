@@ -110,7 +110,7 @@ ul{
 
 .submenu-open {
     max-height: 500px; /* Ajusta este valor según el contenido */
-    padding-left: 15px; /* Espacio de indentación para los submenús */
+    padding-left: 30px; /* Espacio de indentación para los submenús */
 }
 
 .submenu-closed {

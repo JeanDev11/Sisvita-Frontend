@@ -14,9 +14,9 @@ import { UsuarioService } from '../../../services/usuario.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit{
-  isMinimized:boolean = false;
+  isMinimized: boolean = false;
   submenuOpen = false;
-  isSpecialist:boolean = false;
+  isSpecialist: boolean = false;
   rol:String = '';
 
   constructor(private toggleSidebarService: ToggleSidebarService, private usuarioService: UsuarioService, private router: Router){}

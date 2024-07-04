@@ -23,7 +23,6 @@
     height: 50px;
     display: flex;
     border-radius: 10px;
-    position: absolute;
     left: 265px;
     transition: left 0.5s ease;
 }

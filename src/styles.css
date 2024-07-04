@@ -27,3 +27,27 @@
         transform: scale(1.2);
     }
 }
+
+fieldset {
+    min-width: auto !important;
+    padding: 0.4em 0.75em 0.75em !important;
+    margin: 0 3px 20px !important;
+    border: 1px solid #C2A5EE !important;
+}
+
+legend {
+    float: none !important;
+    width: auto !important;
+    padding: 0 3px !important;
+    margin-bottom: initial !important;
+    font-size: inherit !important;
+    line-height: initial !important;
+    font-weight: 500;
+    /* display: block !important;
+    padding-inline-start: 2px !important;
+    padding-inline-end: 2px !important;
+    border-width: initial !important;
+    border-style: none !important;
+    border-color: initial !important;
+    border-image: initial !important; */
+}

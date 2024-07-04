@@ -1,17 +1,21 @@
 <div class="contenedor">
+    <!-- <div *ngIf="alertMessage" [ngClass]="'alert ' + alertType + ' scale-up-center z-3'" role="alert">{{ alertMessage }}</div> -->
     <div class="busqueda">
         <div class="metodo-busqueda">
             <label for="tipo" class="form-label">Tipo de test:</label>
-            <select id="tipo" class="form-select" aria-label="Default select example" (change)="onTipoTestChange($event)">
+            <select id="tipo" class="form-select" aria-label="Default select example"
+                (change)="onTipoTestChange($event)">
                 <option value="Todos" selected>Todos</option>
                 <option value="Test de Ansiedad de Zung">Test de Ansiedad de Zung</option>
-                <option value="Cuestionario de Ansiedad Estado-Rasgo (STAI)">Cuestionario de Ansiedad Estado-Rasgo</option>
+                <option value="Cuestionario de Ansiedad Estado-Rasgo (STAI)">Cuestionario de Ansiedad Estado-Rasgo
+                </option>
                 <option value="Inventario de Ansiedad de Beck (BAI)">Inventario de Ansiedad de Beck</option>
             </select>
         </div>
         <div class="metodo-busqueda">
             <label for="nivel" class="form-label">Nivel:</label>
-            <select id="nivel" class="form-select" aria-label="Default select example" (change)="onNivelAnsiedadChange($event)">
+            <select id="nivel" class="form-select" aria-label="Default select example"
+                (change)="onNivelAnsiedadChange($event)">
                 <option value="Todos" selected>Todos</option>
                 <option value="Bajo">Bajo</option>
                 <option value="Medio">Medio</option>
@@ -20,7 +24,8 @@
         </div>
         <div class="metodo-busqueda">
             <label for="formGroupExampleInput" class="form-label">Fecha:</label>
-            <input type="date" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" (change)="onDateChange($event)">
+            <input type="date" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"
+                (change)="onDateChange($event)">
         </div>
     </div>
     <table class="table table-striped">
@@ -33,18 +38,136 @@
                 <th scope="col">Puntaje</th>
                 <th scope="col">Calificación</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Evaluación</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let resultado of filteredResultados; let i = index">
                 <th scope="row" [ngStyle]="{'background-color': getBackgroundColor(resultado)}"></th>
-                <td>{{ resultado.usuario?.nombres }}</td>
-                <td>{{ resultado.usuario?.apellidos }}</td>
-                <td>{{ resultado.test?.titulo }}</td>
+                <td>{{ resultado.usuario__rel.nombres }}</td>
+                <td>{{ resultado.usuario__rel.apellidos }}</td>
+                <td>{{ resultado.test__rel.titulo }}</td>
                 <td>{{ resultado.puntaje_obtenido }}</td>
-                <td>{{ resultado.nivel?.descripcion }}</td>
+                <td>{{ resultado.nivel__rel.descripcion }}</td>
                 <td>{{ resultado.fecha_creacion }}</td>
+                <td class="td-botones">
+                    <button id="btn-desplegable" class="btn" (click)="openModal(resultado)">
+                        <span class="material-symbols-rounded">rate_review</span>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal anim-opacity z-2" tabindex="-1" [ngClass]="{'show': showModal}"
+    [style.display]="showModal ? 'block' : 'none'" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content scale-up-center">
+            <div class="modal-header">
+                <h5 class="modal-title">Evaluación de resultados</h5>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Datos del paciente</legend>
+                    <div class="content-fieldset">
+                        <div class="label-input column2">
+                            <label class="form-label">Nombre y apellidos:</label>
+                            <input class="form-control" type="text"
+                                [value]="selectedResultado?.usuario__rel?.nombres + ' ' + selectedResultado?.usuario__rel?.apellidos"
+                                disabled readonly>
+                        </div>
+                        <div class="label-input">
+                            <label class="form-label">DNI:</label>
+                            <input class="form-control" type="text" [value]="selectedResultado?.usuario__rel?.dni"
+                            disabled readonly>
+                        </div>
+                        <div class="label-input">
+                            <label class="form-label">Puntaje:</label>
+                            <input class="form-control" type="text" [value]="selectedResultado?.puntaje_obtenido"
+                                disabled readonly>
+                        </div>
+                        <div class="label-input column2">
+                            <label class="form-label">Tipo test:</label>
+                            <input class="form-control" type="text" [value]="selectedResultado?.test__rel?.titulo"
+                                disabled readonly>
+                        </div>
+                        <div class="label-input column2">
+                            <label class="form-label">Nivel:</label>
+                            <input class="form-control" type="text" [value]="selectedResultado?.nivel__rel?.descripcion"
+                                disabled readonly>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Evaluación del especialista</legend>
+                    <div class="content-fieldset">
+                        <div class="column2">
+                            <label for="diagnostico" class="form-label">Diagnostico:</label>
+                            <select id="diagnostico" class="form-select" aria-label="Default select example" [(ngModel)]="selectedDiagnosticoId">
+                                <option value="0" selected>---</option>
+                                <option *ngFor="let td of listTD" [value]="td.id_tipo_diagnostico">{{td.nombre_diagnostico }}</option>
+                            </select>
+                        </div>
+                        <div class="column4">
+                            <label for="exampleFormControlTextarea1" class="form-label">Fundamentación
+                                cientifica:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [(ngModel)]="fundamentacionCientifica"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Evaluación del tratamiento</legend>
+                    <div class="content-fieldset">
+                        <div class="column2">
+                            <label for="tratamiento" class="form-label">Tratamiento:</label>
+                            <div class="d-flex">
+                                <select id="tratamiento" class="form-select" aria-label="Default select example" [(ngModel)]="tratamientoSeleccionado">
+                                    <option value="0" selected>---</option>
+                                    <option *ngFor="let tt of listTT" [value]="tt.id_tipo_tratamiento">{{
+                                        tt.nombre_tratamiento }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <p></p>
+                            <button class="btn-add" (click)="addTratamiento()">
+                                <span class="material-symbols-rounded">add_circle</span>
+                            </button>
+                        </div>
+                        
+                        <div class="column4">
+                            <label for="exampleFormControlTextarea2" class="form-label">Descripción:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea2" rows="2" [(ngModel)]="tratamientoDescripcion" readonly></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Comunicación</legend>
+                    <div class="content-fieldset">
+                        <div class="label-input column2">
+                            <label class="form-label">Correo electrónico:</label>
+                            <input class="form-control" type="text" value="Disabled readonly input" [value]="selectedResultado?.usuario__rel?.correo_electronico" 
+                            disabled readonly>
+                        </div>
+                        <div class="form-check column1-4-5">
+                            <input class="form-check-input" type="checkbox" value="" id="notificar" (change)="toggleNotificacion($event)">
+                            <label class="form-check-label" for="notificar">Notificar</label>
+                          </div>
+                        <div class="column4">
+                            <label for="exampleFormControlTextarea3" class="form-label">Mensaje:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea3" rows="2" [(ngModel)]="comuMensaje"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarEvaluacion()">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>

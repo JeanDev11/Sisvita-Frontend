@@ -5,39 +5,42 @@ export interface TestResultados {
     puntaje_obtenido: number;
     id_nivel?: number; // Falata corregir para registar un test
     fecha_creacion?: string;
-    test?: {
+    test__rel?: {
         test_id: number;
         titulo: string;
     };
-    nivel?: {
+    nivel__rel?: {
         id_nivel: number;
         descripcion: string;
         semaforo: string;
     };
-    usuario?: {
+    usuario__rel?: {
         usuario_id: number;
         nombres: string;
         apellidos: string;
+        correo_electronico: string;
     };
 }
 
-export interface TestResultadosInput {
-    resultado_id?: number;
+export interface TestResultadosImport {
+    resultado_id: number;
     puntaje_obtenido: number;
-    fecha_creacion?: string;
-    test: {
-        test_id: number;
-        titulo: string;
-    };
-    nivel: {
+    fecha_creacion: string;
+    nivel__rel: {
         id_nivel: number;
         descripcion: string;
         semaforo: string;
     };
-    usuario: {
-        usuario_id: number;
-        nombres: string;
+    test__rel: {
+        test_id: number;
+        titulo: string;
+    };
+    usuario__rel: {
         apellidos: string;
+        correo_electronico: string;
+        dni: string;
+        nombres: string;
+        usuario_id: number;
         ubigeo: {
             id_ubigeo: number;
             departamento: string;
