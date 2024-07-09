@@ -13,6 +13,7 @@ import { TratamientoService } from '../../../../services/tratamiento.service';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { EspecialistaService } from '../../../../services/especialista.service';
 import { EmailService } from '../../../../services/email.service';
+import { AlertService } from '../../../../services/alert.service';
 import { Diagnostico } from '../../../../model/diagnostico';
 import { Tratamiento } from '../../../../model/tratamiento';
 import { EvaluacionPaciente } from '../../../../model/evaluacion-paciente';
@@ -54,6 +55,7 @@ export class ReporteComponent implements OnInit {
     private tiposTratamientoService: TiposTratamientoService, private diagnosticoService: DiagnosticoService,
     private tratamientoService: TratamientoService, private evaluacionPacienteService: EvaluacionPacienteService,
     private usuarioService: UsuarioService, private especialistaService: EspecialistaService, private emailService: EmailService,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -150,8 +152,7 @@ export class ReporteComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
-    this.openAlert('La evaluación se registró exitosamente.', 'alert-success');
-    // this.limpiarCampos() Corregir!!!!
+    this.limpiarCampos();
   }
 
   addTratamiento() {
@@ -164,7 +165,7 @@ export class ReporteComponent implements OnInit {
         descripcion: selectedTratamientoNombre,
       });
 
-      // Obtener el número de tratamiento actual (índice + 1)
+      // Obtener el número de tratamiento actual (índice)
       const numeroTratamiento = this.selectedTratamientos.length;
 
       // Agregar el nombre del tratamiento y la descripción al textarea
@@ -217,37 +218,37 @@ export class ReporteComponent implements OnInit {
 
                     // Verificar si todos los tratamientos se han registrado
                     if (tratamientosRegistrados === totalTratamientos) {
-                      // Mostrar la alerta de éxito aquí
-                      this.openAlert('La evaluación se registró exitosamente.', 'alert-success');
+                      this.alertService.showAlert('La evaluación se registró exitosamente.', 'alert-success');
                       console.log('La evaluación se registró exitosamente.');
-                      // this.enviarEmail();
 
                       if (this.isChecked) {
                         // Llamar a la función para enviar el email
                         this.enviarEmail();
                         console.log(this.isChecked)
                       }
+                      // Cerrar el modal aquí
+                      this.closeModal();
                     }
                   },
                   (error) => {
                     console.error('Error al registrar tratamiento:', error);
+                    this.alertService.showAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
                   }
                 );
               });
             },
             (error) => {
               console.error('Error al registrar evaluación:', error);
-              this.openAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
+              this.alertService.showAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
             }
           );
         },
         (error) => {
           console.error('Error al registrar diagnóstico:', error);
-          this.openAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
+          this.alertService.showAlert('Se produjo un error al guardar la evaluación.', 'alert-warning');
         }
       );
     }
-    this.closeModal();
   }
 
   getIdUsuario(): void {
@@ -285,22 +286,6 @@ export class ReporteComponent implements OnInit {
 
   toggleNotificacion(event: any) {
     this.isChecked = event.target.checked;
-    console.log(this.isChecked)
-    
-  }
-
-  openAlert(mensaje: string, tipo: string) {
-    this.alertMessage = mensaje;
-    this.alertType = tipo;
-  
-    setTimeout(() => {
-      this.closeAlert();
-    }, 1800);
-  }
-
-  closeAlert() {
-    this.alertMessage = null;
-    this.alertType = null;
   }
 
   limpiarCampos() {

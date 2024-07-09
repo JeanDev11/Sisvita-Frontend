@@ -1,5 +1,5 @@
 <div class="content">
-  <h5 class="">Realiza el test que más adecuado</h5>
+  <h4 class="subtitulo">Realiza el test que más adecuado</h4>
   <div class="d-flex justify-content-evenly align-items-center">
     <a *ngFor="let test of tests" class="card text-bg-dark" [routerLink]="['/main/testView', test.test_id]">
       <img [src]="'assets/image/bg-test' + test.test_id + '.svg'" class="card-img" [alt]="'bg-test' + test.test_id">
@@ -11,42 +11,3 @@
     </a>
   </div>
 </div>
-
-
-
-
-<!-- <div class="content">
-  <h5 class="">Realiza el test que más adecuado</h5>
-  <div class="d-flex justify-content-evenly align-items-center">
-    <a class="card text-bg-dark" [routerLink]="['/main/testView/', 1]">
-      <img src="assets/image/bg-test1.svg" class="card-img" alt="bg-test1">
-      <div class="card-img-overlay">
-        <h5 class="card-title">Test de Ansiedad de Zung</h5>
-        <p class="card-text">
-          El Test de Ansiedad de Zung es una herramienta autoadministrada diseñada para medir el nivel de ansiedad de un individuo. Es fácil de usar y se completa rápidamente.
-        </p>
-        <p class="card-text"><small>Tiempo estimado: 10 minutos</small></p>
-      </div>
-    </a>
-    <a class="card text-bg-dark" [routerLink]="['/main/testView', 2]">
-      <img src="assets/image/bg-test2.svg" class="card-img" alt="bg-test2">
-      <div class="card-img-overlay">
-        <h5 class="card-title">Cuestionario de Ansiedad Estado-Rasgo (STAI)</h5>
-        <p class="card-text">
-          El STAI es un cuestionario que evalúa dos tipos de ansiedad: la ansiedad como un estado (momentánea) y como un rasgo (duradera). Es útil para diferenciar entre estos dos aspectos.
-        </p>
-        <p class="card-text"><small>Tiempo estimado: 5 minutos</small></p>
-      </div>
-    </a>
-    <a class="card text-bg-dark" [routerLink]="['/main/testView', 3]">
-      <img src="assets/image/bg-test3.svg" class="card-img" alt="bg-test3">
-      <div class="card-img-overlay">
-        <h5 class="card-title">Inventario de Ansiedad de Beck (BAI)</h5>
-        <p class="card-text">
-          El BAI es un inventario de 21 preguntas que mide la gravedad de la ansiedad en adultos y adolescentes. Es reconocido por su alta fiabilidad y validez.
-        </p>
-        <p class="card-text"><small>Tiempo estimado: 5 minutos</small></p>
-      </div>
-    </a>
-  </div>
-</div> -->

@@ -1,0 +1,51 @@
+<div class="content">
+    <h4 class="subtitulo">Configuración de cuenta</h4>
+    <div class="subcontent">
+        <h5 class="column2">Detalles del perfil</h5>
+        <div class="label-input">
+            <label for="nombre" class="form-label">Nombres:</label>
+            <input id="nombre" class="form-control" type="text" [(ngModel)]="nombres" [placeholder]="placeholderNombres">
+        </div>
+        <div class="label-input">
+            <label for="apellidos" class="form-label">Apellidos:</label>
+            <input id="apellidos" class="form-control" type="text" [(ngModel)]="apellidos" [placeholder]="placeholderApellidos">
+        </div>
+        <div class="">
+            <label for="nacimiento" class="form-label">Fecha de nacimiento:</label>
+            <input id="nacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento" [(ngModel)]="fecha_nac">
+        </div>
+        <div class="">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="number" class="form-control" id="telefono" placeholder="Teléfono" [(ngModel)]="telefono" [placeholder]="placeholderTelefono">
+        </div>
+        <div class="metodo-busqueda">
+            <label for="sexo" class="form-label">Sexo:</label>
+            <select id="sexo" class="form-select" aria-label="Default select example" [(ngModel)]="sexo">
+                <option value="" disabled selected hidden>Selecciona una opción</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="N">No especificar</option>
+            </select>
+        </div>
+        <h5 class="column2 mt-5">Cambio de contraseña</h5>
+        <div class="">
+            <label for="contrasenaNueva" class="form-label">Nueva contraseña:</label>
+            <input id="contrasenaNueva" type="password" class="form-control" placeholder="Nueva contraseña" [(ngModel)]="contrasenaNueva">
+        </div>
+        <div class="">
+            <label for="contrasenaNueva2" class="form-label">Confirme contraseña:</label>
+            <input id="contrasenaNueva2" type="password" class="form-control" placeholder="Nueva contraseña" [(ngModel)]="contrasenaNueva2">
+        </div>
+        <div class="column2 mt-5 subcontent2">
+            <div class="column2 d-flex">
+                <span class="material-symbols-rounded me-2">info</span>
+                <p>Para validar cualquier cambio digite su contraseña actual.</p>
+            </div>
+            <input id="contrasenaActual" type="password" class="form-control column1" placeholder="Contraseña actual" [(ngModel)]="contrasenaActual">
+        </div>
+        <div class="d-flex justify-content-between mt-5">
+            <button type="button" class="btn btn-secondary">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+        </div>
+    </div>
+</div>

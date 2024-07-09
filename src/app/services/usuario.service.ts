@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Paciente } from '../model/paciente';
 import { Usuario } from '../model/usuario';
 import { Especialista } from '../model/especialista';
@@ -27,6 +27,10 @@ export class UsuarioService {
 
   getUsuariosAll(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}/getall`);
+  }
+
+  getUsuario(usuario_id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/${usuario_id}`);
   }
 
   addEspecialista(especialista: Especialista): Observable<any> {
@@ -99,5 +103,15 @@ export class UsuarioService {
       localStorage.removeItem('currentUser');
     }
     this.currentUserSubject.next(null);
+  }
+
+  updateUsuario(data: any): Observable<any> {
+    // Enviar el token almacenado en localStorage para autenticar la solicitud.
+    const currentUser = this.currentUserValue;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentUser.token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
   }
 }

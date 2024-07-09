@@ -24,7 +24,7 @@ header {
   width: 50px;
 }
 
-.nombre-app{
+.nombre-app {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +46,7 @@ header {
   font-size: 1.2em;
 }
 
-.nav-item{
+.nav-item {
   margin: auto 0;
   margin-left: 10px;
 }
@@ -60,7 +60,7 @@ header {
 }
 
 .main {
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 h1 {
@@ -69,13 +69,17 @@ h1 {
   margin-bottom: 20px;
 }
 
+.section {
+  margin: 0 100px;
+}
+
 .lead {
   font-size: 1.25rem;
   margin-bottom: 20px;
 }
 
 img {
-  max-width: 100%;
+  /* max-width: 100%; */
   height: auto;
 }
 
@@ -109,4 +113,37 @@ footer img {
 footer p {
   font-size: 1rem;
   margin: 0;
+}
+
+.wave {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+#wave1 {
+  border: 2px solid;
+  width: 200%;
+  height: 100%;
+  animation: waveAnimation 50s infinite alternate linear;
+}
+
+/* .wave svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200% !important;
+  height: 100%;
+  animation: waveAnimation 8s infinite linear;
+} */
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }

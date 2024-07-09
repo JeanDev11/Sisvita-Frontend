@@ -1,0 +1,39 @@
+.subcontent{
+    padding: 4rem 16rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 3rem;
+}
+
+.subtitulo{
+    margin-left: 8rem;
+}
+
+.btn-primary{
+    width: 50%;
+}
+
+.subcontent2{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0rem 3rem;
+}
+
+.column1-2-3{
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: space-between;
+}
+
+.column2{
+    grid-column: span 2;
+}
+
+.column1{
+    grid-column: span 1;
+}
+
+.placeholder{
+    color: aqua;
+    background-color: brown;
+}

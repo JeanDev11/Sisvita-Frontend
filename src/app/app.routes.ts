@@ -7,6 +7,7 @@ import { TestViewComponent } from './components/main/test/test-view/test-view.co
 import { TestComponent } from './components/main/test/test.component';
 import { ReporteComponent } from './components/main/vigilancia/reporte/reporte.component';
 import { MapaCalorComponent } from './components/main/vigilancia/mapa-calor/mapa-calor.component';
+import { CuentaComponent } from './components/main/cuenta/cuenta.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
         { path: 'testView/:testId', component: TestViewComponent },
         { path: 'reporte', component: ReporteComponent},
         { path: 'mapa', component: MapaCalorComponent},
+        { path: 'cuenta', component: CuentaComponent},
     
     ]}
     

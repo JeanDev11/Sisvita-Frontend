@@ -1,15 +1,8 @@
 <div class="main">
+    <div *ngIf="alertMessage" [ngClass]="'alert ' + alertType + ' scale-up-center z-3'" role="alert">{{ alertMessage }}</div>
     <app-sidebar></app-sidebar>
 
     <div class="content-container">
         <app-body></app-body>
     </div>
 </div>
-
-
-<!-- <div class="main-container">
-    <app-sidebar></app-sidebar>
-    <div class="content-container">
-        <app-navbar></app-navbar>
-    </div>
-</div> -->

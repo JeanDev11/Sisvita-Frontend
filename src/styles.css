@@ -14,6 +14,18 @@
     --opcion-hover: #e6e4fac7;
 }
 
+.form-control{
+    padding: .55rem .75rem !important;
+}
+
+.form-select{
+    padding: .55rem .75rem !important;
+}
+
+.placeholder{
+    color: #626668;
+}
+
 .scale-up-center {
     animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }

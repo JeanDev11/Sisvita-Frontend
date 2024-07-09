@@ -7,9 +7,8 @@
     height: 95%;
 }
 
-.content > h5{
-    margin-bottom: 0;
-    height: 5%;
+.subtitulo{
+    margin-left: 8rem;
 }
 
 .card{
@@ -18,6 +17,7 @@
     border: 4px solid black;
     overflow: hidden;
     transition: transform 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    box-shadow: 5px 5px 20px 1px rgba(0,0,0,0.25);
 }
 
 .card:hover{
