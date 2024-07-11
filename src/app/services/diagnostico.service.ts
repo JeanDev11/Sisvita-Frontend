@@ -7,7 +7,7 @@ import { Diagnostico } from '../model/diagnostico';
   providedIn: 'root'
 })
 export class DiagnosticoService {
-  private apiUrl = 'http://127.0.0.1:5000';
+  private apiUrl = 'http://127.0.0.1:5002';
 
   constructor(private http: HttpClient) { }
 

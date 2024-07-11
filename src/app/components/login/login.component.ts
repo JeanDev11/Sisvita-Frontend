@@ -7,6 +7,7 @@ import { Paciente } from '../../model/paciente';
 import { Especialista } from '../../model/especialista';
 import { UbigeoService } from '../../services/ubigeo.service';
 import { Ubigeo } from '../../model/ubigeo';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit {
   showIncompleteFields = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef, private router: Router, private usuarioService: UsuarioService,
-    private ubigeoService: UbigeoService
+    private ubigeoService: UbigeoService, private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -110,11 +111,10 @@ export class LoginComponent implements OnInit {
 
       this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
         response => {
-          this.openAlert('Inicio de sesión exitoso. ¡Bienvenido!', 'alert-success');
-          
+          this.router.navigate(['/main']);
           setTimeout(() => {
-            this.router.navigate(['/main']);
-          }, 2000);
+            this.alertService.showAlert('Inicio de sesión exitoso. ¡Bienvenido!', 'alert-success');
+          }, 500);
         },
         error => {
           this.openAlert('Usuario no encontrado!.', 'alert-danger');
@@ -129,15 +129,15 @@ export class LoginComponent implements OnInit {
       this.usuarioService.login(this.correo_electronico, this.contrasena).subscribe(
         response => {
           console.log('Login success:', response);
-          this.router.navigate(['/main']);
+          setTimeout(() => {
+            this.router.navigate(['/main']);
+          }, 300);
         },
         error => {
           console.error('Login failed:', error);
         }
       );
-      setTimeout(() => {
-        this.router.navigate(['/main']);
-      }, 3000);
+
     };
 
     if (this.rol === 'P') {
@@ -167,7 +167,9 @@ export class LoginComponent implements OnInit {
 
       this.usuarioService.addPaciente(paciente).subscribe(
         response => {
-          this.openAlert('¡Registro exitoso! Bienvenido a nuestra plataforma.', 'alert-success');
+          setTimeout(() => {
+            this.alertService.showAlert('¡Registro exitoso! Bienvenido a nuestra plataforma.', 'alert-success');
+          }, 800);
           handleSuccessfulRegistration(); // Llamar al manejo de inicio de sesión
         },
         error => {
@@ -194,7 +196,7 @@ export class LoginComponent implements OnInit {
 
       // Verificar campos vacíos o nulos
       if (!especialista.nombres || !especialista.apellidos || !especialista.telefono || !especialista.fecha_nac ||
-        !especialista.sexo || !especialista.especialidad || especialista.nro_colegiado === undefined || 
+        !especialista.sexo || !especialista.especialidad || especialista.nro_colegiado === undefined ||
         !especialista.direccion_consultorio || especialista.id_ubigeo === 0) {
         this.openAlert('Completar los campos.', 'alert-warning');
         return;
@@ -202,7 +204,9 @@ export class LoginComponent implements OnInit {
 
       this.usuarioService.addEspecialista(especialista).subscribe(
         response => {
-          this.openAlert('¡Registro exitoso! Bienvenido a nuestra plataforma.', 'alert-success');
+          setTimeout(() => {
+            this.alertService.showAlert('¡Registro exitoso! Bienvenido a nuestra plataforma.', 'alert-success');
+          }, 800);
           handleSuccessfulRegistration(); // Llamar al manejo de inicio de sesión
         },
         error => {
@@ -269,7 +273,7 @@ export class LoginComponent implements OnInit {
     this.selectedDistrito = '';
     this.provincias = [];
     this.distritos = [];
-  
+
     this.especialidad = '';
     this.nro_colegiado = undefined!;
     this.direccion_consultorio = '';
@@ -281,7 +285,7 @@ export class LoginComponent implements OnInit {
   openAlert(mensaje: string, tipo: string) {
     this.alertMessage = mensaje;
     this.alertType = tipo;
-  
+
     setTimeout(() => {
       this.closeAlert();
     }, 1800);

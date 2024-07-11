@@ -7,7 +7,7 @@ import { Tratamiento } from '../model/tratamiento';
   providedIn: 'root'
 })
 export class TratamientoService {
-  private apiUrl = 'http://127.0.0.1:5000';
+  private apiUrl = 'http://127.0.0.1:5002';
 
   constructor(private http: HttpClient) { }
 

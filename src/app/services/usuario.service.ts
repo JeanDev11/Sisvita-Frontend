@@ -23,7 +23,7 @@ export class UsuarioService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  private apiUrl = 'http://127.0.0.1:5000/usuarios';
+  private apiUrl = 'http://127.0.0.1:5001/usuarios';
 
   getUsuariosAll(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}/getall`);
