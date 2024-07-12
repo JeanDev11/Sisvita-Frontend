@@ -110,13 +110,11 @@ export class ReporteComponent implements OnInit {
 
   onTipoTestChange(event: any): void {
     this.tipoTest = event.target.value;
-    console.log(this.tipoTest)
     this.applyFilters();
   }
 
   onNivelAnsiedadChange(event: any): void {
     this.nivelAnsiedad = event.target.value;
-    console.log(this.nivelAnsiedad)
     this.applyFilters();
   }
 
@@ -195,7 +193,6 @@ export class ReporteComponent implements OnInit {
             especialista_id: this.especialista_id,
             resultado_id: resultado_id,
           };
-          
           this.evaluacionPacienteService.insertEvaluacionPaciente(evaluacionPaciente).subscribe(
             (response) => {
               console.log('Evaluación registrada correctamente:', response);
@@ -277,9 +274,15 @@ export class ReporteComponent implements OnInit {
         to_email: this.selectedResultado?.usuario__rel.correo_electronico,
       };
 
-      this.emailService.sendEmail(emailData)
-        .then(() => console.log('Email enviado con éxito'))
-        .catch(error => console.error('Error al enviar email', error));
+      this.emailService.sendEmail(emailData).subscribe(
+        (response) => {
+          console.log('Respuesta del servidor:', response);
+        },
+        (error) => {
+          console.error('Error al enviar el correo:', error);
+          this.alertService.showAlert('Se produjo un error al enviar el correo.', 'alert-warning');
+        }
+      );
     }
 
   }
