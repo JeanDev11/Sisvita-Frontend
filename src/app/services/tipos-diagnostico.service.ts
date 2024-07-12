@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TiposDiagnosticoService {
-  private apiUrl = 'http://127.0.0.1:5000/tiposdiagnostico';
+  private apiUrl = 'http://127.0.0.1:5002/tiposdiagnostico';
 
   constructor(private http: HttpClient) { }
 

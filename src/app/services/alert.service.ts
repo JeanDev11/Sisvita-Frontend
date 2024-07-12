@@ -11,7 +11,7 @@ export class AlertService {
   private alertSubject = new BehaviorSubject<{ message: string, type: string } | null>(null);
   alertState = this.alertSubject.asObservable();
 
-  showAlert(message: string, type: string, duration: number = 2000) {
+  showAlert(message: string, type: string, duration: number = 2500) {
     this.alertSubject.next({ message, type });
     setTimeout(() => {
       this.clearAlert();

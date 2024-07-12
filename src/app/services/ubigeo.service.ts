@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UbigeoService {
-  private apiUrl = 'http://127.0.0.1:5000/ubigeo';
+  private apiUrl = 'http://127.0.0.1:5001/ubigeo';
 
   constructor(private http: HttpClient) { }
 
